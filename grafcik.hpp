@@ -214,7 +214,7 @@ public:
 
 template <typename G, typename Vis = NoOpVisitor<G>>
     requires GraphVisitor<Vis, G>
-void BreadthFirstSearch(const G& graph, Vis&& visitor, VertexId start) {
+inline void BreadthFirstSearch(const G& graph, Vis&& visitor, VertexId start) {
     if (start >= graph.VertexCount()) [[unlikely]] {
         return;
     }
@@ -245,7 +245,7 @@ void BreadthFirstSearch(const G& graph, Vis&& visitor, VertexId start) {
 
 template <typename G, typename Vis = NoOpVisitor<G>>
     requires GraphVisitor<Vis, G>
-void DepthFirstSearch(const G& graph, Vis&& visitor, VertexId start) {
+inline void DepthFirstSearch(const G& graph, Vis&& visitor, VertexId start) {
     if (start >= graph.VertexCount()) {
         return;
     }
