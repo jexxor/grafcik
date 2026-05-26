@@ -1,30 +1,43 @@
 # grafcik
 
-A tiny header-only library focused on construction of flow networks.
+A tiny header-only C++23 library for immutable graphs and flow networks.
 
-## Usage example
+## Usage example (max flow with Dinic)
 
 ```cpp
+#include <cstdint>
+#include <iostream>
+
 #include "grafcik.hpp"
 
 int main() {
-    using namespace grafcik;
+        using Grafcik::VertexId;
+        using Grafcik::FlowNetwork::Dinic;
+        using Grafcik::FlowNetwork::FlowNetworkBuilder;
 
-    // Create a flow network with 4 vertices
-    FlowNetwork graph(4);
+        // Build a flow network with 4 vertices (0..3).
+        FlowNetworkBuilder builder(4);
+        builder.AddEdge(0, 1, 10);
+        builder.AddEdge(0, 2, 5);
+        builder.AddEdge(1, 2, 15);
+        builder.AddEdge(1, 3, 10);
+        builder.AddEdge(2, 3, 10);
 
-    // Add edges with capacities
-    graph.AddEdge(0, 1, 10);
-    graph.AddEdge(0, 2, 5);
-    graph.AddEdge(1, 2, 15);
-    graph.AddEdge(1, 3, 10);
-    graph.AddEdge(2, 3, 10);
+        auto graph = builder.Build();
+        Dinic dinic(graph, VertexId{0}, VertexId{3});
 
-    // Compute the maximum flow from vertex 0 to vertex 3
-    int max_flow = graph.MaxFlow(0, 3);
+        std::int64_t max_flow = dinic.MaxFlow();
+        std::cout << "Maximum flow from vertex 0 to vertex 3: " << max_flow
+                            << '\n';
 
-    std::cout << "Maximum flow from vertex 0 to vertex 3: " << max_flow << std::endl;
-
-    return 0;
+        return 0;
 }
 ```
+
+## Notes
+
+- Namespace is `Grafcik` (capital G).
+- Graphs are immutable after construction; use `GraphBuilder` or
+    `FlowNetworkBuilder`.
+- Traversals are provided via `Traverses::BreadthFirstSearch` and
+    `Traverses::DepthFirstSearch`.
