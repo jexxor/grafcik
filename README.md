@@ -6,7 +6,7 @@ A tiny header-only C++23 library for immutable graphs and flow networks.
 
 ```cpp
 #include <cstdint>
-#include <iostream>
+#include <print>
 
 #include "grafcik.hpp"
 
@@ -27,8 +27,7 @@ int main() {
         Dinic dinic(graph, VertexId{0}, VertexId{3});
 
         std::int64_t max_flow = dinic.MaxFlow();
-        std::cout << "Maximum flow from vertex 0 to vertex 3: " << max_flow
-                            << '\n';
+        std::println("Maximum flow from vertex 0 to vertex 3: {}", max_flow);
 
         return 0;
 }
