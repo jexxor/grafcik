@@ -11,25 +11,25 @@ A tiny header-only C++23 library for immutable graphs and flow networks.
 #include "grafcik.hpp"
 
 int main() {
-        using Grafcik::VertexId;
-        using Grafcik::FlowNetwork::Dinic;
-        using Grafcik::FlowNetwork::FlowNetworkBuilder;
+    using Grafcik::VertexId;
+    using Grafcik::FlowNetwork::Dinic;
+    using Grafcik::FlowNetwork::FlowNetworkBuilder;
 
-        // Build a flow network with 4 vertices (0..3).
-        FlowNetworkBuilder builder(4);
-        builder.AddEdge(0, 1, 10);
-        builder.AddEdge(0, 2, 5);
-        builder.AddEdge(1, 2, 15);
-        builder.AddEdge(1, 3, 10);
-        builder.AddEdge(2, 3, 10);
+    // Build a flow network with 4 vertices (0..3).
+    FlowNetworkBuilder builder(4);
+    builder.AddEdge(0, 1, 10);
+    builder.AddEdge(0, 2, 5);
+    builder.AddEdge(1, 2, 15);
+    builder.AddEdge(1, 3, 10);
+    builder.AddEdge(2, 3, 10);
 
-        auto graph = builder.Build();
-        Dinic dinic(graph, VertexId{0}, VertexId{3});
+    auto graph = builder.Build();
+    Dinic dinic(graph, VertexId{0}, VertexId{3});
 
-        std::int64_t max_flow = dinic.MaxFlow();
-        std::println("Maximum flow from vertex 0 to vertex 3: {}", max_flow);
+    std::int64_t max_flow = dinic.MaxFlow();
+    std::println("Maximum flow from vertex 0 to vertex 3: {}", max_flow);
 
-        return 0;
+    return 0;
 }
 ```
 
